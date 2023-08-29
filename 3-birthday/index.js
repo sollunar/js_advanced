@@ -3,15 +3,20 @@
 const validBirthday = "2000-08-20";
 const invalidBirthday = "2009-08-31";
 
-function validateAge(dateString) {
-  const birthday = new Date(dateString).getTime();
-  const today = new Date().getTime();
+function isOverFourteen(dateString) {
+  const birthday = new Date(dateString);
+  const today = new Date();
 
-  const ageInMillis = today - birthday;
-  const fourteenYearsInMillis = 441797328000;
+  const fourteenYears = new Date(
+    today.getFullYear() - 14,
+    today.getMonth(),
+    today.getDate(),
+    today.getHours(),
+    today.getMinutes()
+  );
 
-  return ageInMillis > fourteenYearsInMillis;
+  return birthday.getTime() <= fourteenYears.getTime();
 }
 
-console.log(validateAge(validBirthday));
-console.log(validateAge(invalidBirthday));
+console.log(isOverFourteen(validBirthday));
+console.log(isOverFourteen(invalidBirthday));
