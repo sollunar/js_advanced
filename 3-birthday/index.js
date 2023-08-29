@@ -7,15 +7,10 @@ function validateAge(dateString, ageRestriction) {
   const birthday = new Date(dateString);
   const today = new Date();
 
-  const fourteenYears = new Date(
-    today.getFullYear() - ageRestriction,
-    today.getMonth(),
-    today.getDate(),
-    today.getHours(),
-    today.getMinutes()
-  );
+  const ageLimit = new Date();
+  ageLimit.setFullYear(today.getFullYear() - ageRestriction);
 
-  return birthday.getTime() <= fourteenYears.getTime();
+  return birthday <= ageLimit;
 }
 
 console.log(validateAge(validBirthday, 14));
