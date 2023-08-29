@@ -4,24 +4,10 @@ class Character {
   #name;
   #race;
   #lang;
-  constructor(name, race) {
+  constructor(name, race, lang) {
     this.#name = name;
     this.#race = race;
-    this.#setLanguage();
-  }
-
-  #setLanguage() {
-    switch (this.#race) {
-      case "orc":
-        this.#lang = "black speech";
-        break;
-      case "elf":
-        this.#lang = "sinadrin";
-        break;
-      default:
-        this.#lang = "common";
-        break;
-    }
+    this.#lang = lang;
   }
 
   speak() {
@@ -29,87 +15,108 @@ class Character {
   }
 }
 
-const spellBook = {
-  magicBarrier: "magic barrier",
-  summontWaterSpirit: "summon water spirit",
-};
+class Weapon {
+  constructor(weapon) {
+    this.weapon = weapon;
+  }
+  weaponType() {
+    console.log(`I am armed with a ${this.weapon}`);
+  }
+  attack() {
+    console.log(`Attacking with ${this.weapon}`);
+  }
+}
 
-const weaponArsenal = {
-  sword: "sword",
-  bow: "bow",
-};
+class Sword extends Weapon {
+  constructor() {
+    super("sword");
+  }
+
+  attack() {
+    console.log(`===Swinging sword at the target===`);
+  }
+}
+
+class Bow extends Weapon {
+  constructor() {
+    super("bow");
+  }
+
+  attack() {
+    console.log(`===Shooting an arrow at the target===`);
+  }
+}
+
+class Spell {
+  constructor(spell) {
+    this.spell = spell;
+  }
+
+  currentSpell() {
+    console.log(`I can cast a ${this.spell}`);
+  }
+
+  cast() {
+    console.log(`Casting the ${this.spell}`);
+  }
+}
+
+class MagicBarrier extends Spell {
+  constructor() {
+    super("magic barier");
+  }
+
+  cast() {
+    console.log(`***A bubble barrier shield you from any harm ***`);
+  }
+}
 
 class Orc extends Character {
-  constructor(name) {
-    super(name, "orc");
-  }
-
-  speak() {
-    console.log("Mirdautas vras!");
-  }
-
-  weapon(weapon) {
+  constructor(name, weapon) {
+    super(name, "orc", "black speech");
     this.weapon = weapon;
   }
 
-  weaponAttack() {
-    switch (this.weapon) {
-      case "bow":
-        console.log("***Shooting an arrow at the target***");
-        break;
-      case "sword":
-        console.log("***Swinging the sword at the target***");
-        break;
-      default:
-        console.log("***Attacking the target with bare hands***");
-        break;
-    }
+  speak() {
+    console.log(
+      `===Mirdautas vras! I am ${this.name}. I speak ${this.lang}.===`
+    );
   }
 }
 
 class Elf extends Character {
-  constructor(name) {
-    super(name, "elf");
+  constructor(name, spell) {
+    super(name, "elf", "sindarin");
+    this.spell = spell;
   }
 
   speak() {
-    console.log("Mae govannen!");
-  }
-
-  spell(spellName) {
-    this.spell = spellName;
-  }
-
-  castSpell() {
-    switch (this.spell) {
-      case "summon water spirit":
-        console.log("***A wave of water flows to the target***");
-        break;
-      case "magic barrier":
-        console.log("***A bubble barrier shields you from any harm***");
-        break;
-      default:
-        console.log("***Choose a spell first***");
-        break;
-    }
+    console.log(
+      `***Mae govannen! My name is ${this.name}. I speak ${this.lang}.`
+    );
   }
 }
 
 class Human extends Character {
-  constructor(name) {
-    super(name, "human");
+  constructor(name, weapon) {
+    super(name, "human", "common tongue");
+    this.weapon = weapon;
   }
 }
 
-const gothmog = new Orc("Gothmog");
+const sword = new Sword();
+const gothmog = new Orc("Gothmog", sword);
 gothmog.speak();
-gothmog.weapon(weaponArsenal.bow);
-gothmog.weaponAttack();
+gothmog.weapon.attack();
 
-const arwen = new Elf("Arwen");
+const magicbarrier = new MagicBarrier();
+const arwen = new Elf("Arwen", magicbarrier);
 arwen.speak();
-arwen.spell(spellBook.magicBarrier);
-arwen.castSpell();
+arwen.spell.currentSpell();
+arwen.spell.cast();
 
-const eomer = new Human("Eomer");
+const bow = new Bow();
+const eomer = new Human("Eomer", bow);
 eomer.speak();
+eomer.weapon.weaponType();
+eomer.weapon.attack();
