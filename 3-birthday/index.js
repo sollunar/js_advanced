@@ -1,22 +1,16 @@
-"use-strict";
+"use strict";
 
 const validBirthday = "2000-08-20";
-const invalidBirthday = "2009-08-20";
+const invalidBirthday = "2009-08-31";
 
 function validateAge(dateString) {
-  const birthday = new Date(dateString);
-  const today = new Date();
+  const birthday = new Date(dateString).getTime();
+  const today = new Date().getTime();
 
-  const yearsPassed = today.getFullYear() - birthday.getFullYear();
+  const ageInMillis = today - birthday;
+  const fourteenYearsInMillis = 441797328000;
 
-  const isBeforeBirthday =
-    today.getMonth() < birthday.getMonth() ||
-    (today.getMonth() === birthday.getMonth() &&
-      today.getDate() < birthday.getDate());
-
-  const age = isBeforeBirthday ? yearsPassed - 1 : yearsPassed;
-
-  return age >= 14;
+  return ageInMillis > fourteenYearsInMillis;
 }
 
 console.log(validateAge(validBirthday));
