@@ -9,9 +9,13 @@ const diceTypes = {
 };
 
 function throwDice(diceType) {
+  if (isNaN(parseInt(diceType))) {
+    throw new Error(
+      `ArgumentError: Function only accepts numbers\nReceived: ${typeof diceType}`
+    );
+  }
   return Math.floor(Math.random() * diceType + 1);
 }
 
 console.log(throwDice(diceTypes.d20));
-
-
+console.log(throwDice("foo-bla"));
