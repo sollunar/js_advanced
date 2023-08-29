@@ -13,7 +13,7 @@ class HourBilling extends Billing {
     this.hours = hours;
   }
   calculateTotal() {
-    return this.amount * this.hours;
+    return super.calculateTotal() * this.hours;
   }
 }
 
@@ -22,7 +22,7 @@ class FixBilling extends Billing {
     super(amount);
   }
   calculateTotal() {
-    return this.amount;
+    return super.calculateTotal();
   }
 }
 
@@ -32,7 +32,7 @@ class ItemBilling extends Billing {
     this.totalItems = totalItems;
   }
   calculateTotal() {
-    return this.totalItems * this.amount;
+    return super.calculateTotal() * this.totalItems;
   }
 }
 
@@ -42,3 +42,5 @@ const hourBilling = new HourBilling(4, 10);
 console.log(hourBilling.calculateTotal());
 const fixBilling = new FixBilling(10);
 console.log(fixBilling.calculateTotal());
+const itemBilling = new ItemBilling(2, 10);
+console.log(itemBilling.calculateTotal());
