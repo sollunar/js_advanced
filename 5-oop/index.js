@@ -16,6 +16,10 @@ Weapon.prototype.attack = function () {
   console.log(`Attacking with ${this.weapon}`);
 };
 
+Weapon.prototype.current = function () {
+  console.log(`I am armed with a ${this.weapon}`);
+};
+
 const Sword = function () {
   Weapon.call(this, "sword");
 };
@@ -25,6 +29,7 @@ Sword.prototype.constructor = Sword;
 Sword.prototype.attack = function () {
   console.log(`===Swinging sword at the target===`);
 };
+Sword.prototype.current = Weapon.prototype.current;
 
 const Spell = function (spell) {
   this.spell = spell;
@@ -32,6 +37,10 @@ const Spell = function (spell) {
 
 Spell.prototype.cast = function () {
   console.log(`Casting the ${this.spell}`);
+};
+
+Spell.prototype.current = function () {
+  console.log(`I can cast the ${this.spell} spell`);
 };
 
 const MagicBarrier = function () {
@@ -43,6 +52,7 @@ MagicBarrier.prototype.constructor = MagicBarrier;
 MagicBarrier.prototype.cast = function () {
   console.log(`***A bubble barrier shield you from any harm ***`);
 };
+MagicBarrier.prototype.current = Spell.prototype.current;
 
 const Orc = function (name, weapon) {
   this.weapon = weapon;
@@ -86,10 +96,12 @@ const sword = new Sword();
 
 const gothmog = new Orc("Gothmog", sword);
 gothmog.speak();
+gothmog.weapon.current();
 gothmog.weapon.attack();
 
 const magicBarrier = new MagicBarrier();
 
 const arwen = new Elf("Arwen", magicBarrier);
 arwen.speak();
+arwen.spell.current();
 arwen.spell.cast();
