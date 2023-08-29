@@ -1,90 +1,95 @@
-const Character = function (name, race) {
+const Character = function (name, race, lang) {
   this.name = name;
   this.race = race;
-  this.lang;
+  this.lang = lang;
 };
 
 Character.prototype.speak = function () {
-  switch (this.race) {
-    case "elf":
-      this.lang = "Mae govannen!";
-      console.log(this.lang);
-      break;
-    case "orc":
-      this.lang = "Mirdautas vras!";
-      console.log(this.lang);
-      break;
-    default:
-      console.log(".....");
-      break;
-  }
+  console.log(`My name is ${this.name}. I speak ${this.lang}`);
 };
 
-const spellBook = {
-  magicBarrier: "magic barrier",
-  summontWaterSpirit: "summon water spirit",
+const Weapon = function (weapon) {
+  this.weapon = weapon;
 };
 
-const weaponArsenal = {
-  sword: "sword",
-  bow: "bow",
+Weapon.prototype.attack = function () {
+  console.log(`Attacking with ${this.weapon}`);
 };
 
-const Orc = function (name) {
-  Character.call(this, name, "orc");
+const Sword = function () {
+  Weapon.call(this, "sword");
+};
+
+Sword.prototype = Object.create(Sword.prototype);
+Sword.prototype.constructor = Sword;
+Sword.prototype.attack = function () {
+  console.log(`===Swinging sword at the target===`);
+};
+
+const Spell = function (spell) {
+  this.spell = spell;
+};
+
+Spell.prototype.cast = function () {
+  console.log(`Casting the ${this.spell}`);
+};
+
+const MagicBarrier = function () {
+  Spell.call(this, "magic barrier");
+};
+
+MagicBarrier.prototype = Object.create(MagicBarrier.prototype);
+MagicBarrier.prototype.constructor = MagicBarrier;
+MagicBarrier.prototype.cast = function () {
+  console.log(`***A bubble barrier shield you from any harm ***`);
+};
+
+const Orc = function (name, weapon) {
+  this.weapon = weapon;
+  Character.call(this, name, "orc", "black speech");
 };
 
 Orc.prototype = Object.create(Character.prototype);
 Orc.prototype.constructor = Orc;
-Orc.prototype.speak = Character.prototype.speak;
-
-Orc.prototype.weapon = function (weapon) {
-  this.weapon = weapon;
-};
-Orc.prototype.weaponAttack = function () {
-  switch (this.weapon) {
-    case "bow":
-      console.log("***Shooting an arrow at the target***");
-      break;
-    case "sword":
-      console.log("***Swingin the sword at the target***");
-      break;
-    default:
-      console.log("***Attacking the target with bare hands***");
-      break;
-  }
+Orc.prototype.speak = function () {
+  console.log(`===Mirdautas vras! I am ${this.name}. I speak ${this.lang}.===`);
 };
 
-const Elf = function (name) {
-  Character.call(this, name, "elf");
+// Orc.prototype.weaponAttack = function () {
+//   switch (this.weapon) {
+//     case "bow":
+//       console.log("***Shooting an arrow at the target***");
+//       break;
+//     case "sword":
+//       console.log("***Swingin the sword at the target***");
+//       break;
+//     default:
+//       console.log("***Attacking the target with bare hands***");
+//       break;
+//   }
+// };
+
+const Elf = function (name, spell) {
+  this.spell = spell;
+  Character.call(this, name, "elf", "sindarin");
 };
 
 Elf.prototype = Object.create(Character.prototype);
 Elf.prototype.constructor = Elf;
-Elf.prototype.speak = Character.prototype.speak;
-Elf.prototype.spell = function (spellName) {
-  this.spell = spellName;
-};
-Elf.prototype.castSpell = function () {
-  switch (this.spell) {
-    case "summon water spirit":
-      console.log("***A wave of water flows to the target***");
-      break;
-    case "magic barrier":
-      console.log("***A bubble barrier shields you from any harm***");
-      break;
-    default:
-      console.log("***Choose a spell first***");
-      break;
-  }
+Elf.prototype.speak = function () {
+  console.log(
+    `***Mae govannen! My name is ${this.name}. I speak ${this.lang}.`
+  );
 };
 
-const gothmog = new Orc("Gothmog");
+const sword = new Sword();
+
+const gothmog = new Orc("Gothmog", sword);
 gothmog.speak();
-gothmog.weapon(weaponArsenal.bow);
-gothmog.weaponAttack();
+gothmog.weapon.attack();
 
-const arwen = new Elf("Arwen");
+const magicBarrier = new MagicBarrier();
+
+const arwen = new Elf("Arwen", magicBarrier);
 arwen.speak();
-arwen.spell(spellBook.magicBarrier);
-arwen.castSpell();
+arwen.spell.cast();
