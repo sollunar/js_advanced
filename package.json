@@ -4,7 +4,9 @@
   "description": "JS ADVANCED COURSE",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "live-server",
+    "build": "npx rollup ./14-user-task/index.js --file bundle.js --format iife"
   },
   "repository": {
     "type": "git",
