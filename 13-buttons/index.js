@@ -1,4 +1,4 @@
-"use-strict";
+"use strict";
 
 const counter = document.querySelector(".click_counter");
 const buttonsContainer = document.querySelector(".buttons");
@@ -7,7 +7,7 @@ let prevButton;
 for (let i = 0; i < 5; i++) {
   const button = document.createElement("button");
   button.classList.add("button");
-  button.innerHTML = "Нажми меня!";
+  button.innerText = "Нажми меня!";
   button.setAttribute("id", `button-${i}`);
   buttonsContainer.append(button);
 }
@@ -19,14 +19,11 @@ buttonsContainer.addEventListener("click", function (e) {
     return;
   }
 
-  counter.innerHTML = Number(counter.innerHTML) + 1;
-  currentButton.innerHTML = "Нажата!";
-
-  console.log(currentButton);
-  console.log(prevButton);
+  counter.innerText = Number(counter.innerText) + 1;
+  currentButton.innerText = "Нажата!";
 
   if (prevButton && !prevButton.isEqualNode(currentButton)) {
-    prevButton.innerHTML = "Нажми меня!";
+    prevButton.innerText = "Нажми меня!";
   }
 
   prevButton = currentButton;
