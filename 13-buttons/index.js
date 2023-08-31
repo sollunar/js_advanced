@@ -22,7 +22,10 @@ buttonsContainer.addEventListener("click", function (e) {
   counter.innerHTML = Number(counter.innerHTML) + 1;
   currentButton.innerHTML = "Нажата!";
 
-  if (prevButton && prevButton.id !== currentButton.id) {
+  console.log(currentButton);
+  console.log(prevButton);
+
+  if (prevButton && !prevButton.isEqualNode(currentButton)) {
     prevButton.innerHTML = "Нажми меня!";
   }
 
