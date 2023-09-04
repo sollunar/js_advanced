@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/sollunar/js_advanced/issues"
   },
-  "homepage": "https://github.com/sollunar/js_advanced#readme"
+  "homepage": "https://github.com/sollunar/js_advanced#readme",
+  "devDependencies": {
+    "rollup": "^3.28.1"
+  }
 }
